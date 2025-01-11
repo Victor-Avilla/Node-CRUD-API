@@ -2,6 +2,7 @@ import express from 'express'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
+
 const app = express()
 app.use(express.json())
 const users = []
@@ -9,10 +10,12 @@ const users = []
 app.get('/usuarios', (req, res) => {
 
   res.status(200).json(users)
-
 })
 
 app.post('/usuarios', async (req, res) => {
+
+  users.push(req.body)
+
   const user = await prisma.user.create({
     data: {
       email: req.body.email,
@@ -36,6 +39,15 @@ app.put('/usuarios/:id', async (req, res) => {
     }
   })
   res.status(201).json(user)
+})
+
+app.delete('/usuarios/:id',async(req,res)=>{
+  await prisma.user.delete({
+    where:{
+      id:req.params.id,
+    },
+  })
+  res.status(204).json({message:"usurio deletado com sucesso"})
 })
 
 app.listen(3000, () => {
