@@ -1,20 +1,22 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
-
+import cors from 'cors'
 const prisma = new PrismaClient()
 
 const app = express()
 app.use(express.json())
-const users = []
+app.use(cors())
 
-app.get('/usuarios', (req, res) => {
-
+app.get('/usuarios', async (req, res) => {
+  const users = await prisma.user.findMany()
   res.status(200).json(users)
 })
 
 app.post('/usuarios', async (req, res) => {
   try {
-    users.push(req.body)
+    if (req.body.age < 18) throw new Error("Você é menor de idade")//verifica se o usuario é maior de idade
+
+    // users.push(req.body)
 
     const user = await prisma.user.create({
       data: {
@@ -24,14 +26,14 @@ app.post('/usuarios', async (req, res) => {
       }
     })
 
-  if(req.body.age < 18) throw new Error("Você é menor de idade")
 
-  res.status(201).json(user)
+    res.status(201).json(user)//feedback indicando sucesso no metodo
   }
+
   catch (err) {
-  return res.status(400).json({ error: err.message });
-}
-finally{console.log(users)}
+    return res.status(400).json({ error: err.message });//apresenta erro se o usuario for menor de idade
+  }
+  finally { console.log(users) }
 })
 
 app.put('/usuarios/:id', async (req, res) => {
@@ -51,10 +53,8 @@ app.put('/usuarios/:id', async (req, res) => {
 app.delete('/usuarios/:id', async (req, res) => {
   await prisma.user.delete({
     where: {
-      id: req.params.id,
-    },
+      id: req.params.id,},
   })
-  res.status(204).json({ message: "usurio deletado com sucesso" })
 })
 
 app.listen(3000, () => {
