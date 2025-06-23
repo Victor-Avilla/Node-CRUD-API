@@ -51,10 +51,16 @@ app.put('/usuarios/:id', async (req, res) => {
 })
 
 app.delete('/usuarios/:id', async (req, res) => {
-  await prisma.user.delete({
+  try { 
+    const deletedUser = await prisma.user.delete({
     where: {
       id: req.params.id,},
   })
+  res.status(200).json(deletedUser)
+  }
+  catch (err) {
+    res.status(400).json({ error: err.message });//apresenta erro se o usuario for menor de idade
+ }
 })
 
 app.listen(3000, () => {
