@@ -7,17 +7,17 @@ Este projeto foi desenvolvido como parte do meu aprendizado em Node.js. Ele impl
 - Praticar conceitos fundamentais de Node.js e Express.
 - Realizar operações CRUD integradas com um banco de dados MongoDB.
 - Utilizar Prisma como ORM para facilitar a comunicação com o banco.
-- Disponibilizar uma API RESTful para ser consumida por aplicações front-end (ex: projeto React user-sign-in).
+- Disponibilizar uma API RESTful para ser consumida por aplicações front-end ([Pagina-de-cadastro-e-lista-de-usuarios ](https://github.com/Victor-Avilla/Pagina-de-cadastro-e-lista-de-usuarios)).
 - Explorar ferramentas de teste de API como Thunder Client.
 
 ## Tecnologias Utilizadas
 
-- **Node.js**: Ambiente de execução do JavaScript no servidor.
-- **Express**: Framework web minimalista para criação de rotas e middlewares.
-- **MongoDB**: Banco de dados NoSQL, utilizado como persistência.
-- **Prisma ORM**: Mapeamento objeto-relacional, facilitando operações no MongoDB.
-- **Thunder Client**: Testes das rotas HTTP durante o desenvolvimento.
-- **CORS**: Permite o consumo deste backend por clientes front-end.
+- **Node.js**
+- **Express**
+- **MongoDB**
+- **Prisma ORM**
+- **Thunder Client**
+- **CORS**
 
 ## Endpoints Disponíveis
 
